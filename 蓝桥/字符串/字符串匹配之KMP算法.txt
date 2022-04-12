@@ -1,0 +1,2 @@
+https://wiki.jikexueyuan.com/project/kmp-algorithm/define.html
+详细解析KMP算法~~~

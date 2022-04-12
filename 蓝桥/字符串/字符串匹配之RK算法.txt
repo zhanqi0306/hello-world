@@ -1,0 +1,55 @@
+利用哈希值匹配更快的优点来加快字符串匹配的速度。
+我们先求出主串所有长度与模串相等的子串，将子串与模串的hash值相比较
+相等的话就说明两个字符串相等（此处暂时不考虑hash冲突）
+
+#include <iostream>
+#include <string>
+using namespace std;
+class Solution
+{
+public:
+    int RK(const string& src,const string& dst)
+    {
+        int srcLength = src.size();
+        int dstLength = dst.size();
+        
+        powValue = new int[dstLength-1];
+        hashValue = new int[srcLength-dstLength+1];
+        
+        for(int i=0;i<dstLength;++i)
+        {
+            powValue[i]=1;
+            for(int j =i;j>0;--j)
+            {
+                powValue[i]*=26;
+            }
+        }
+        //计算子串的hash值
+        int dstHash = 0;
+        for(int j = 0;j<dstLength;++j)
+        {
+            dstHash+= powValue[dstLength-j-1]*(dst[j]-'a');
+        }
+        
+        //首先计算第一个子串的hash值
+        hashValue[0]=0;
+        for(int j = 0;j<dstLength;++j)
+        {
+            hashValue[0]+= powValue[dstLength-j-1]*(src[j]-'a');
+        }
+        if(hashValue[0]==dstHash)
+            return 0;
+        for(int i =1;i<srcLength;++i)
+        {
+            //此处有一个小技巧~通过前一个子串的hash值计算当前的hash值
+            hashValue[i]=(hashValue[i-1]-powValue[dstLength-1]*(src[i-1]-'a'))*26+(src[i+dstLength-1]-'a');
+            if(hashValue[i]==dstHash)
+                return i;
+            
+        }
+        return -1;
+    }
+    
+    int* powValue;//申请内存提前保存26进制值，减少计算时间。
+    int* hashValue;//储存已经计算过的子串的hash值。
+};
