@@ -1,0 +1,81 @@
+#include <iostream>
+#include <algorithm>
+#include <math.h>
+#include <string>
+using namespace std;
+int len, n, a[20];
+
+//获取n的三进制形式 并且翻转 结果在a这个数组里面
+int G3()
+{
+    int i;
+    while(n)
+    {
+        a[len]=n%3;
+        n/=3;
+        len++;
+    }
+    len--;
+
+    for (int i = 1; i <= len; i++)
+    {
+        cout << a[i] << " ";
+    }
+    cout << endl;
+}
+
+
+int main()
+{
+    scanf("%d", &n)!=EOF;
+    len=1;
+    //首先给n转成三进制 并且翻转一下
+    G3();
+
+    string ans;
+    int jinzhi = 0;
+    for (int i = 1; i <= len; i++)
+    {
+        int chara = a[i] + jinzhi;
+        //如果这一位是0，结果是0，进制也是0
+        if (chara == 0)
+        {
+            ans += '0';
+            jinzhi = 0;
+        }
+        //如果这一位是1，结果也是1，进制为0
+        if (chara == 1)
+        {
+            ans += '1';
+            jinzhi = 0;
+        }
+        //如果这一位是2，结果是-1，进制是1，向上进一位
+        if (chara == 2)
+        {
+            ans += "-1";
+            jinzhi = 1;
+        }
+        //如果这一位是3，结果是0，进制是1
+        if (chara == 3)
+        {
+            ans += '0';
+            jinzhi = 1;
+        }
+    }
+    if (jinzhi == 1)
+    {
+        ans += '1';
+    }
+    return 0;
+}
+
+/*
+不一样的三进制加法
+比如25转成三进制是 2 2 1
+程序是把它翻转过来之后处理 1 2 2
+然后设置一个进制位
+如果遇到1怎样怎样 
+如果遇到2怎样怎样
+...
+还挺简单的
+*/

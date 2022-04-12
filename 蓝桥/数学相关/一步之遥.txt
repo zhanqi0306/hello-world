@@ -1,0 +1,31 @@
+//不定方程 不定方程的整数解 
+//扩展欧几里得定理 Ax + By = gcd(A,B)有解 
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
+int ex_gcd(int a, int b, int &x, int &y){
+    //该函数求不定方程 a * x + b * y = gcd(a,b) 的整数解x,y 
+    //返回最大公约数 
+    if(b == 0){
+        x = 1;//b == 0时, x * a = gcd(a,0) = a 
+        y = 0;
+        return a;
+    }
+    int ans = ex_gcd(b, a % b, x, y);
+    int t = x;
+    x = y;
+    y = t - a / b * x;
+    return ans;
+}
+
+int main(){
+//  97 * x + 127 * y = 1;
+    int x,y;
+    int a = ex_gcd(127,97,x,y);
+    cout<<a<<endl;//a:最大公约数
+    cout<<x<<endl;//方程的解x
+    cout<<y<<endl;//方程的解y
+    return 0;
+}
