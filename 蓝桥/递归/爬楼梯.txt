@@ -1,0 +1,19 @@
+#include<stdio.h>
+
+int f(int n){
+    if(n == 1) return 1;
+    if(n == 2) return 2;
+    if(n == 3) return 3;
+
+    return f(n-1)+f(n-2)+f(n-3);
+}
+
+int main(int argc, char const *argv[])
+{
+    printf("总共的方法是%d\n",f(40));
+    return 0;
+}
+
+/*
+主要就是分析递归方程式怎样写
+*/

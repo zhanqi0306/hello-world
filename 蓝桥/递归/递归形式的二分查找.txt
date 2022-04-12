@@ -1,0 +1,23 @@
+#include<stdio.h>
+
+//递归形式的二分查找
+int binarySearch(int arr[],int low,int high,int key){
+    if (low > high)
+        return -1;
+    int mid = low + ((high-low)>>1);
+    printf("mid的值：%d\n",mid);
+    if (arr[mid] == key)
+        return mid;
+    if (arr[mid] > key)
+        return binarySearch(arr,low,mid-1,key);
+    if (arr[mid] < key)
+        return binarySearch(arr,mid+1,high,key);
+}
+
+int main(int argc, char const *argv[])
+{
+    int arr[] = {20,20,21,25,30,73,89,101};
+    int temp = binarySearch(arr,0,7,21);
+    printf("%d  ..",temp);
+    return 0;
+}

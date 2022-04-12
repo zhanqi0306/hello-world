@@ -1,0 +1,21 @@
+#include<stdio.h>
+
+int main(int argc, char const *argv[])
+{
+    int m=134,n=18;
+    printf("m和n的最大公约数是%d\n",GCD(m,n));
+    return 0;
+}
+
+//使用辗转相除法，求最大公约数
+int GCD(int m,int n){
+    if(m % n == 0)
+        return n;
+    else
+        return GCD(n,m%n);
+}
+
+/*
+知识点：
+辗转相除法求最大公约数
+*/

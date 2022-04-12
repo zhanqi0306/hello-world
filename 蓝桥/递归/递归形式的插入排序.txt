@@ -1,0 +1,36 @@
+//以递归的形式进行插入排序
+
+#include<stdio.h>
+
+int main(int argc, char const *argv[])
+{
+    int arr[] = {8,3,5,7,2,4,1,18,9999};
+    sort(arr,sizeof(arr)/sizeof(int));
+    for (int i = 0; i < sizeof(arr)/sizeof(int); i++)
+    {
+        printf("%d  ",arr[i]);
+    }
+    
+    return 0;
+}
+
+//利用递归形式对数组进行排序
+void sort(int arr[],int len){
+    //递归结束的条件
+    if (len == 1)
+        return;
+    sort(arr,len-1);
+    int temp = arr[len-1];
+    int index = 0;
+    while (temp > arr[index])
+        index++;
+    for (int i=len-2;i>=index;i--)
+        arr[i+1] = arr[i];
+    arr[index] = temp;
+}
+
+/*
+知识点
+同样的问题 每次问题的规模变小
+然后就是插入排序
+*/
