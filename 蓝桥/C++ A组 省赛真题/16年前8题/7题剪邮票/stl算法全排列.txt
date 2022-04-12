@@ -1,0 +1,25 @@
+#include<iostream>
+#include<algorithm>
+#include<vector>
+using namespace std;
+int res = 0;
+void trackbacking(vector<int> & arr){
+    do
+    {
+        res++;
+        for (int i = 0; i < arr.size(); i++)
+        {
+            cout << arr[i] << " ";
+        }
+        cout << endl;
+    } while (next_permutation(arr.begin(),arr.end()));
+    
+}
+
+int main(int argc, char const *argv[])
+{
+    vector<int> arr{0,0,0,0,0,0,0,1,1,1,1,1};
+    trackbacking(arr);
+    cout << res << endl;
+    return 0;
+}

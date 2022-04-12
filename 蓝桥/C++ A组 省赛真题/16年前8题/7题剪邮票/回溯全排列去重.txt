@@ -1,0 +1,36 @@
+#include<iostream>
+#include<algorithm>
+#include<vector>
+using namespace std;
+int res = 0;
+vector<vector<int>> pool;
+
+void trackbacking(vector<int> & arr,int start){
+    if (start == 12)
+    {
+        for (int i = 0; i < pool.size(); i++)
+        {
+            if (pool[i] == arr)//如果当前的排列形式和pool中的有相等的
+            {
+                return;
+            }
+        }
+        pool.push_back(arr);
+        cout << ++res << endl;
+    }
+    
+    for (int i = start; i < arr.size(); i++)
+    {
+        {int t=arr[i];arr[i]=arr[start];arr[start]=t;}
+        trackbacking(arr,start+1);
+        {int t=arr[i];arr[i]=arr[start];arr[start]=t;}
+    }
+}
+
+int main(int argc, char const *argv[])
+{
+    vector<int> arr{0,0,0,0,0,0,0,1,1,1,1,1};
+    trackbacking(arr,0);
+    cout << res << endl;
+    return 0;
+}
