@@ -1,0 +1,93 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+
+//最小可分配的ID
+/*方法一
+先排序 再遍历
+*/
+int f1(const int arr[]){
+    int i = 0;
+    while (i++ < 11)
+    {
+        if (i+1 != arr[i])
+            return i+1;
+    }
+    return i+1;
+}
+
+/*
+方法二
+开一个辅助数组
+*/
+int f2(int arr[]){
+    int helper[12] = {0};
+    for (int i = 0; i < 11; i++)
+        helper[arr[i]] = 1;
+    for (int i = 0; i <= 11; i++)
+    {
+        if (helper[i] == 0)
+            return i;
+    }
+    return 11;
+}
+
+/*
+方法三
+分区 递归
+*/
+int partition(int arr[], int low, int high){
+    int key;
+    key = arr[low];
+    while(low<high){
+        while(low <high && arr[high]>= key )
+            high--;
+        if(low<high)
+            arr[low++] = arr[high];
+        while( low<high && arr[low]<=key )
+            low++;
+        if(low<high)
+            arr[high--] = arr[low];
+    }
+    arr[low] = key;
+
+    return low;
+}
+
+//改进形式的快排 可以拿到第K小的元素值
+int quick_sort(int arr[], int start, int end,int k){
+    int pos;
+    if (start<end){
+        pos = partition(arr, start, end);
+        if (pos > k-1)//如果主元的位置大于K
+        {
+            quick_sort(arr,start,pos-1,k);
+        }else if(pos < k-1){
+            quick_sort(arr,pos+1,end,k);
+        }else if(pos == k-1){
+            return arr[k-1];
+        }
+    }
+}
+
+int f3(int arr[],int l,int r){
+    if (l > r)
+        return l+1;
+    int midIndex = l+((r-l)>>1);
+    int q = quick_sort(arr,l,r,midIndex-l+1);
+    int t = midIndex+1;
+    if (q == t)//左侧是紧密的
+    {
+        return f3(arr,midIndex+1,r);
+    }else{//左侧是稀疏的
+        return f3(arr,l,midIndex-1);
+    }
+}
+
+int main(int argc, char const *argv[])
+{
+    int a[10] = {2,3,1,5,6,7,10,9,8,11};
+    cout << f3(a,0,9);
+    //cout << f3(a,0,9);
+    return 0;
+}

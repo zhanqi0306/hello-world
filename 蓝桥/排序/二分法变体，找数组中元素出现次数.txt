@@ -1,0 +1,66 @@
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+
+// 二分查找，寻找target的右边界（不包括target）
+// 如果rightBorder为没有被赋值（即target在数组范围的左边，例如数组[3,3]，target为2）
+int getRightBorder(int* nums,int numsSize,int target) {
+    int left = 0;
+    int right = numsSize - 1; // 定义target在左闭右闭的区间里，[left, right]
+    int rightBorder = -2; // 记录一下rightBorder没有被赋值的情况
+    while (left <= right) { // 当left==right，区间[left, right]依然有效
+        int middle = left + ((right - left) / 2);// 防止溢出 等同于(left + right)/2
+        if (nums[middle] > target) {
+            right = middle - 1; // target 在左区间，所以[left, middle - 1]
+        } else { // 当nums[middle] == target的时候，更新left，这样才能得到target的右边界
+            left = middle + 1;
+            rightBorder = left;
+        }
+    }
+    return rightBorder;
+}
+
+// 二分查找，寻找target的左边界leftBorder（不包括target）
+// 如果leftBorder没有被赋值（即target在数组范围的右边，例如数组[3,3],target为4）
+int getLeftBorder(int*nums,int numsSize, int target) {
+    int left = 0;
+    int right = numsSize - 1; // 定义target在左闭右闭的区间里，[left, right]
+    int leftBorder = -2; // 记录一下leftBorder没有被赋值的情况
+    while (left <= right) {
+        int middle = left + ((right - left) / 2);
+        if (nums[middle] >= target) { // 寻找左边界，就要在nums[middle] == target的时候更新right
+            right = middle - 1;
+            leftBorder = right;
+        } else {
+            left = middle + 1;
+        }
+    }
+    return leftBorder;
+}
+
+int* searchRange(int* nums, int numsSize, int target, int* returnSize){
+    int * result = (int*)malloc(sizeof(int) * 2);
+    *returnSize = 2;
+    int left = getLeftBorder(nums,numsSize,target);
+    int right = getRightBorder(nums,numsSize,target);
+    //第一种情况
+    if(right == -2 || left == -2){
+        result[0] = -1;
+        result[1] = -1;
+        return result;
+    }
+    if(right - left > 1){
+        result[0] = left+1;
+        result[1] = right-1;
+        return result;
+    }
+    result[0] = -1;
+    result[1] = -1;
+    return result;
+}
+
+/*
+这个题目是二分查找的变体
+主要是寻找左右边界  寻找左右边界的返回值也需要琢磨一下
+然后就是如果找不到左右边界 说明数组中没有这个值 直接返回 -1,-1
+*/

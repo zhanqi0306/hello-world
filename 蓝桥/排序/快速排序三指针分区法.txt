@@ -1,0 +1,51 @@
+#include<stdio.h>
+
+void swap(int arr[],int a,int b){
+    int tmp = arr[a];
+    arr[a]=arr[b];
+    arr[b]=tmp;
+}
+
+
+int partition(int arr[],int low,int high){
+    int i = low+1;  
+    int j = high;
+    int pivot = arr[low];
+    int e = low+1;
+    while(i<=j){
+        if(arr[i]<pivot){  //小于pivot，i位置和e位置交换，e++,i++
+            swap(arr,i,e);
+            e++;
+            i++;
+        }else if(arr[i]==pivot){ //等于pivot,i++
+            i++;
+        }else{
+            swap(arr,i,j);   //大于pivot，s位置和j位置交换，j--
+            j--;
+        }
+    }
+    swap(arr,low,e-1);    //将基准值插入到相应位置
+    return e-1;
+}
+
+
+void quickSort(int arr[],int low,int high){
+    if(low>=high) return;
+    int j = partition(arr,low,high);
+    quickSort(arr,low,j-1);
+    quickSort(arr,j+1,high);
+}
+
+
+
+int main(int argc, char const *argv[])
+{
+    int arr[] = {5,2,1,3,6,5,7};
+    quickSort(arr,0,6);
+    for (int i = 0; i < 7; i++)
+    {
+        printf("%d\t",arr[i]);
+    }
+    
+    return 0;
+}
