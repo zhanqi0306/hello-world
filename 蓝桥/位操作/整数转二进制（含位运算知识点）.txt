@@ -1,0 +1,61 @@
+#include<stdio.h>
+#include<limits.h>
+char* itobs(int,char*);
+void show_bstr(const char*);
+
+int main(int argc, char const *argv[])
+{
+    //CHAR_BIT宏代表一个char类型的变量所占的位数
+    char bin_str[CHAR_BIT * sizeof(int) + 1];
+    int number;
+    
+    puts("Enter integers and see them in binary.");
+    puts("Non-numeric input terminates program.");
+    while (scanf("%d",&number) == 1)
+    {
+        itobs(number,bin_str);
+        printf("%d is ",number);
+        show_bstr(bin_str);
+        putchar('\n');
+    }
+    puts("Bye!");
+    
+    return 0;
+}
+
+//通过对位的操作，输入一个整数，转换成对应的二进制的形式
+char* itobs(int n,char* ps){
+    int i;
+    const static int size = CHAR_BIT * sizeof(int);
+
+    for (i = size - 1; i >= 0; i--,n >>= 1)
+    {
+        ps[i] = (01 & n) + '0';
+    }
+    ps[size] = '\0';
+    return ps;
+}
+
+void show_bstr(const char* str){
+    int i=0;
+    while (str[i])
+    {
+        putchar(str[i]);
+        if(++i % 4 == 0 && str[i])
+            putchar(' ');
+    }
+    
+}
+
+/*
+位操作知识点
+01的二进制形式是 00000000 00000000 00000000 00000001
+让他和一个数做与运算可以拿到最后一位的值 
+*/
+
+/*
+知识点：
+一个数和它本身做异或，结果是0
+>>1 相当于除2
+<<1 相当于乘2
+*/

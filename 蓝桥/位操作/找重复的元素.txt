@@ -1,0 +1,23 @@
+//不使用额外的空间，并且每个元素只能访问一次
+
+#include<stdio.h>
+
+int main(int argc, char const *argv[])
+{
+    int arr[] = {1,2,3,4,4,5,6,7,8,9,10};
+    int temp = 0;
+    for (int i = 1; i < sizeof(arr)/sizeof(int); i++)
+    {
+        temp ^= i;
+    }
+
+    for (int i = 0; i < sizeof(arr)/sizeof(int); i++)
+    {
+        temp ^= arr[i];
+    }
+
+    printf("%d\n",temp);
+    
+    
+    return 0;
+}
