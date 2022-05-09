@@ -57,6 +57,7 @@ int main(int argc, char const *argv[])
         if (change(i)-i>800 && change(i)-i<900)
             cout << i << " - " << change(i) <<" = " << i-change(i) <<endl;
     }
+ 
     return 0;
 }
 
