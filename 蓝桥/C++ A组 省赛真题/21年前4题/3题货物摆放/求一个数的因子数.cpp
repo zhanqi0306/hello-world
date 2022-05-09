@@ -16,6 +16,7 @@ void num(int n){
 }
 
 int main(){
+    
     int n;
     cin>>n;
     num(n);
