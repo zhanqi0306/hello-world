@@ -23,6 +23,7 @@ int main(int argc, char const *argv[])
     return 0;
 }
 
+
 //通过对位的操作，输入一个整数，转换成对应的二进制的形式
 char* itobs(int n,char* ps){
     int i;
