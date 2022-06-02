@@ -1,1 +1,117 @@
+/*1.任意输入四位十六进制整数，以反序的方式输出该十六进制数。
+比如，输入9AF0 输出0FA9
 
+#include <stdio.h>
+
+int main()
+{
+	unsigned short a,b;
+	scanf("%4X",&a); //按十六进制的方式输入一个无符号短整型 所占宽度为4个空格
+	b = (a & 0x000F) << 12;//通过与运算的方式拿到最低位 然后再左移12位
+	b += (a & 0x00F0) << 4;//取次低位 左移4位
+	b += (a & 0x0F00) >> 4;//取次高位 右移4位
+	b += (a & 0xF000) >> 12;//取最高位 右移12位
+
+	printf("%4X\n",b); //按十六进制的方式输出一个无符号短整型 所占宽度为4空格
+	return 0;
+}
+*/
+
+/*2.输入俩整数赋给整型 a b 要求再不用额外变量的条件下 实现值互换
+#include <stdio.h>
+int main(){
+	int a,b;
+	scanf("%d%d",&a,&b);
+	a = a+b;
+	b = a-b;
+	a = a-b;
+	printf("%d,%d\n",a,b);
+	return 0;
+}
+好像有个位运算实现俩数呼唤的方式
+*/
+
+/*3.输入圆半径，计算并输出周长和面积
+#include <stdio.h>
+#define PI 3.14159
+int main()
+{
+	float r,c,s;
+	scanf("%f",&r);
+	c = 2 * r *PI;
+	s = PI * r * r;
+	printf("c = %f\ts = %f\n",c,s);
+	return 0;
+}*/
+
+/*4.从键盘输入任意一个十六进制负整数，以输入的形式输出
+例如 输入-FA98  输出 -FA98
+对于这个输入的十六进制负整数 内存当中是以其补码的形式存放的 如果把这个值取负  补码应该怎么变？？？
+#include <stdio.h>
+int main()
+{
+	short int a;
+	scanf("%X",&a);
+	printf("-%hx\n",-a);
+	return 0;
+}
+*/
+/*5.已知一元二次方程ax^2 + bx + c = 0   输入a,b,c之后 算x的值
+#include<stdio.h>
+#include<math.h>
+int main()
+{
+	float a,b,c;
+	float d;
+	float x1,x2;
+	printf("input a,b,c:");
+	scanf("%f%f%f",&a,&b,&c);
+	d = sqrt(b*b - 4*a*c);
+	x1 = (-b + d) / (2*a);
+	x2 = (-b - d) / (2*a);
+	printf("x1 = %.2f x2 = %.2f\n",x1,x2);
+	return 0;
+}
+*/
+
+/*6.假设从键盘输入从某日午夜零点到现在已经经历过的时间（秒） 编写程序计算到现在为止已经过了多少天了
+现在的时间是多少？？
+#include<stdio.h>
+int main(){
+	unsigned long t,r;
+	int d,h,m,s;
+
+	printf("second = ");
+	scanf("%d",&t); //t代表过去的总的秒数
+
+	d = t / (24 * 3600);
+	r = t % (24 * 3600); //当前时间的总秒数
+	h = r/3600; // 小时
+	m = (r % 3600) / 60; //当天的分钟数
+	s = (r % 3600) % 60;
+	printf("have passed days is %d,current time is %02d:%02d:%02d\n",d,h,m,s);
+	return 0;
+}
+*/
+/*7...
+#include<stdio.h>
+int main(){
+	char ch;
+	ch = getchar();
+	printf("%c ASCLL code is %d\n",ch-1,ch-1);
+	printf("%c ASCLL code is %d\n",ch,ch);
+	printf("%c ASCLL code is %d\n",ch+1,ch+1);
+	return 0;
+}*/
+
+/*8.编写摄氏温度 华氏温度 转换程序
+#include<stdio.h>
+int main(){
+	float c,f;
+	printf("Input C:");
+	scanf("%f",&c);
+	f = (c + 32.0) * 9.0 / 5.0;
+	printf("F = %.2f\n",f);
+	return 0;
+}
+*/
