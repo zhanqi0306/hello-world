@@ -115,3 +115,31 @@ int main(){
 	return 0;
 }
 */
+/*
+9.输入任意一个三位数，将其各位数字反序输出
+#include <stdio.h>
+int main(){
+	int n1,n2,a,b,c;
+	printf("Input an integer:");
+	scanf("%d",&n1);
+	a = n1 / 100;
+	b = n1 / 10 % 10;
+	c = n1 % 10;
+	n2 = c*100 + b*10 + a;
+	printf("the new number is %d\n",n2);
+
+	return 0;
+}
+*/
+
+/*10.输入三个整数到a b c当中，然后交换他们中的数
+#include <stdio.h>
+int main(){
+	int a,b,c,t;
+	printf("Input three integers:");
+	scanf("%d%d%d",&a,&b,&c);
+	t = c; c = b;b = a;a = t;
+	printf("After swap:%d %d %d\n",a,b,c);
+	return 0;
+}
+*/
