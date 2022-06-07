@@ -155,3 +155,149 @@ int main(){
 	return 0;
 }
 */
+
+/*6-9验证哥德巴赫猜想 任一充分大的偶数，可以用两个素数之和表示。
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+
+int main(){
+	int i,n,p,q,flagp,flagq;
+
+	printf("please input n:");
+	scanf("%d",&n);
+	if (n < 4 || n%2 != 0) //只有充分大的偶数才可以
+	{
+		printf("input data error!!\n");
+		exit(-1);
+	}
+
+	p = 1;
+	do
+	{
+		p++;
+		q = n-p;
+
+		//判断p是否为素数
+		//用从2到根号下p 挨个除以被除数 
+		flagp = 1; //如果flagp是1的话是素数，如果flagp是0的话不是素数
+		for ( i = 2; i <= (int)sqrt(p); i++)
+		{
+			if (p % i == 0)
+			{
+				flagp = 0;
+				break;
+			}
+		}
+
+		//判断q是否是素数
+		flagq = 1;
+		for ( i = 2; i < (int)sqrt(q); i++)
+		{
+			if (q % i == 0)
+			{
+				flagq = 0;
+				break;
+			}			
+		}
+		
+	} while (flagp * flagq == 0); //当p q中有一个不为素数的时候继续循环
+	printf("%d = %d + %d\n",n,p,q);
+
+	return 0;
+}*/
+
+/*6-10 利用公式求 Π 的近似值 要求累加到最后一项小于10^-6为止
+#include <stdio.h>
+#include <math.h>
+int main(){
+	int s = 1;
+	float n=1.0,t=1,pi=0;
+	while (fabs(t) >= 1e-6)
+	{
+		pi += t;
+		n += 2;
+		s = -s;
+		t = s/n;
+	}
+
+	pi *= 4;
+	printf("pi = %.6f\n",pi);
+	
+	return 0;
+}*/
+
+/*6-11打印大小可变的菱形图案
+#include<stdio.h>
+#include<stdlib.h>
+int main(){
+	int i,j,k,m,n,size;
+	printf("input size:");
+	scanf("%d",&size);
+	if (size<=0 || size%2==0)//如果输入菱形图案的大小小于等于0  或者是偶数 那么不成立，直接退出
+	{
+		printf("the size is error!\n");
+		exit(-1);
+	}
+
+	for ( i = 1; i <= size; i++)
+	{
+		n = (i<=(size+1)/2) ? i : size-i+1; //这两行是计算每行需要打印的个*号的数目
+		n = 2*n-1;
+		m = (size-n)/2;
+		for ( k=1;k<=m;k++) //这里是打印空格出来
+			printf(" ");
+		for (j=1;j<=n;j++) //这里是打印空格之后的*号
+			printf("*");
+		printf("\n");
+	}
+	
+	return 0;
+}
+//这题最关键的得是几个变量之间得逻辑了
+*/
+
+/*6-12计算用户输入的两个正整数之间的所有整数中0~9的各个数码的个数
+#include<stdio.h>
+#include<stdlib.h>
+int main(){
+	int num1,num2;
+	int n,s,r;
+	int count0=0,count1=0,count2=0,count3=0,count4=0,count5=0,
+	    count6=0,count7=0,count8=0,count9=0;
+
+	printf("input two integer:");
+	scanf("%d%d",&num1,&num2);
+	if (num1 < 0 || num2 < 0 || num1 > num2)
+	{
+		printf("input error!\n");
+		exit(-1);
+	}
+	
+	for (n = num1; n<=num2;n++)
+	{
+		s = n;
+		do
+		{
+			r = s%10;
+			switch (r)
+			{
+			case 0:count0++;break;
+			case 1:count1++;break;
+			case 2:count2++;break;
+			case 3:count3++;break;
+			case 4:count4++;break;
+			case 5:count5++;break;
+			case 6:count6++;break;
+			case 7:count7++;break;
+			case 8:count8++;break;
+			case 9:count9++;break;
+			}
+			s /= 10;
+		} while (s!=0);
+	}
+	printf("0--%-4d 1--%-4d 2--%-4d\n",count0,count1,count2);
+	return 0;
+}
+//这题是for循环 do-while循环 和 switch语句连用了
+*/
