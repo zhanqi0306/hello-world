@@ -1,0 +1,347 @@
+/*1.编程计算2+4+6+...+98+100
+#include<stdio.h>
+int main(){
+	int sum = 0;
+	for (int i = 2; i<=100; i+=2)
+		sum+=i;
+	printf("sum = %d\n",sum);	
+	return 0;
+}
+*/
+/*2.计算1*2*3 + 3*4*5 + ... + 99*100*101
+#include<stdio.h>
+int main(){
+	int term,sum=0;
+	for (int i = 1; i <= 99; i+=2)
+	{
+		term = i * (i+1) * (i+2); //这里不要再利用一个for循环了 一条语句就可以搞定
+		sum += term;
+	}
+	printf("sum = %d\n",sum);
+	return 0;
+}*/
+/*3.计算阶乘
+#include<stdio.h>
+int main(){
+	int sum = 0;
+	for (int i = 1; i <= 10; i++)
+	{
+		int temp = 1;
+		for (int j = 1; j <= i;j++)
+		{
+			temp *= j;
+		}
+		sum += temp;
+	}
+	printf("%d\n",sum);
+
+	return 0;
+}
+*/
+/*4.编程计算...
+#include<stdio.h>
+int main(){
+	//首先输入n和a的值
+	int n,a;
+	scanf("%d%d",&n,&a);
+	int sum = 0;
+	int temp = 0;
+	for (int i = 1; i <= n; i++)
+	{
+		temp += a;
+		sum += temp;
+		temp *= 10;
+	}
+	printf("%d\n",sum);
+	return 0;
+}
+*/
+/*
+5.计算 Π 的值
+#include<stdio.h>
+int main(){
+	float sum = 1;
+	float temp = 1;
+	for (int i = 1; i <= 50; i++)
+	{
+		int fenzi = i*2;
+		temp = (float)fenzi/(fenzi-1);
+		sum *= temp;
+		temp = (float)fenzi/(fenzi+1);
+		sum *= temp;
+	}
+	printf("%f\n",2 * sum);
+	return 0;
+}
+问题：这里这个利用(float)强制类型转换的逻辑是啥？？？
+(float)是把fenzi这个变量转换成float类型 然后做除法运算 有一个自动类型转换逻辑在
+*/
+
+/*6.利用泰勒级数算sinx的值
+#include<stdio.h>
+#include<math.h>
+int main(){
+	float term = 0;
+	//int i=1;
+	//刚开始先给x输入进来
+	float x;
+	scanf("%f",&x);
+	float sum = x; //先把第一项加到sum上去
+	float fenzi = x;
+	int fenmu = 1;
+	do
+	{
+		sum += term;
+		fenzi = (float)fenzi * -1 * x * x;
+		fenmu = (float)fenmu * (fenmu+1) * (fenmu+2);
+		term = fenzi/fenmu;
+		printf("%f\n",term);
+	} while (fabs(term) >= 1e-5); //当该项的绝对值大于等于1e-5时才成立接着循环
+	printf("%f\n",sum);
+	return 0;
+}
+//1.中间两个分子分母的类型转换不知道啥意思
+//2.答案当中的逻辑肯定错了
+*/
+
+/*7.计算级数和的近似值
+#include<stdio.h>
+#include<math.h>
+#define E 0.000001
+int main(){
+	int i,k=1;
+	float x,y,t=1,s=0,r;
+	printf("Please enter x= ");
+	scanf("%f",&x);
+	r = x;
+	for (y=x,i=1;fabs(r) > E;i++)
+	{
+		s += r;
+		k *= -1;
+		y *= x*x;
+		t *= i;
+		r = k*y/(2*i+1)/t;
+	}
+	printf("s= %f\n",s);
+	return 0;
+}*/
+
+/*8.打印出来所有的水仙花数
+#include<stdio.h>
+int main(){
+	int i,j,k;
+	for (int n = 100; n<=999 ;n++)
+	{
+		i = n / 100; //分离出来百位
+		j = (n-i*100) / 10; //分离出来十位
+		k = n%10; //分离出来个位
+		if (n == i*i*i + j*j*j + k*k*k)
+			printf("%d\t",n);
+	}
+	printf("\n");
+	return 0;
+}*/
+
+/*9.任意输入一个整数x 编程计算x的每位数字相加之和
+#include<stdio.h>
+int main(){
+	int number;
+	scanf("%d",&number);
+	int res = abs(number); //输入一个整数 把它转换成正的
+	int sum = 0;
+	while (res != 0)
+	{
+		sum += res % 10;
+		res /= 10;
+	}
+	printf("%d",sum);
+	return 0;
+}*/
+
+/*10.输入任意的正整数 编程判断该数是否是回文数
+#include<stdio.h>
+int main(){
+	int m;
+	scanf("%d",&m); //先输入m
+	int number = m; //刚开始先保存一下m的值 要不然m最后都变成0了
+	int n = 0;
+	while (m != 0)
+	{
+		n = n*10 + m%10;
+		m /= 10;
+	}
+	if (number == n)
+		printf("yes!!");
+	else 
+		printf("no !!");
+	
+	return 0;
+}*/
+
+/*11.零钱兑换  这一题需要简单的数学逻辑
+#include<stdio.h>
+int main(){
+	int x,y,z,count=0;
+	for (x=1;x<=28;x++)
+	{
+		for (y=1;y<=73;y++)
+		{
+			z = 100 - x - y;
+			if (5*x + 2*y + z == 150)
+			{
+				count++;
+				printf("%02d,%02d,%02d  ",x,y,z);
+				if (count % 6 == 0)
+				{
+					printf("\n");
+				}
+			}
+		}
+	}
+	printf("count = %d\n",count);
+	return 0;
+}
+*/
+
+/*12.一个逻辑问题
+#include<stdio.h>
+int main(){
+	int k=0,sum=0,g=0;
+	char thisman = ' ';
+	for ( k = 0; k <= 3;k++)
+	{
+		thisman = 'A' + k;
+		sum = (thisman != 'A') + (thisman == 'C') + (thisman == 'D') + (thisman != 'D');
+		if (sum == 3)
+		{
+			printf("This man is %c\n",thisman);
+			g = 1;
+		}
+	}
+	if (g != 1)
+		printf("Can't found\n");
+	return 0;
+}*/
+/*13.变成打印如下图形
+#include<stdio.h>
+int main(){
+	int i,j;
+	for ( i = 1; i <= 3; i++)
+	{
+		for ( j = 1;j <= i-1;j++)
+			printf(" ");
+		for ( j = 1;j <= 5-2*(i-1);j++)
+			printf("*");
+		printf("\n");
+	}
+	for ( i = 1; i <= 2; i++)
+	{
+		for ( j = 1;j <= 2-i;j++)
+			printf(" ");
+		for ( j = 1;j <= 2*i+1;j++)
+			printf("*");
+		printf("\n");
+	}
+	return 0;
+}*/
+
+/*14.一行字母的加密输出
+#include<stdio.h>
+#define CHANGE 1
+int main(){
+	int c;
+	while ((c = getchar()) != '\n')
+	{
+		if (CHANGE)
+		{
+			if ((c >= 'a' && c <= 'x') || (c >= 'A' && c <= 'X'))
+				c+=2;
+			else if (c=='y' || c=='Y' || c=='z' || c=='Z')
+				c = c-24;
+				putchar(c);
+		}
+	}
+	putchar("\n");
+	return 0;
+}*/
+/*15.把正整数分解质因数
+#include<stdio.h>
+int main(){
+	int n,i;
+	printf("Please input a number:");
+	scanf("%d",&n);
+	printf("%d = ",n);
+	for (i = 2; i <= n;i++)
+	{
+		while (n != i)
+		{
+			if (n % i == 0)
+			{
+				printf("%d * ",i);
+				n = n/i;
+			}
+			else
+				break;
+		}
+	}
+	printf("%d\n",n);
+	return 0;
+}
+合数分解质因数
+*/
+/*16.利用迭代法 求平方根
+#include<stdio.h>
+#include<math.h>
+int main(){
+	double x1,x2;
+	float a;
+	scanf("%f",&a);
+	x2 = 1.0;
+	do
+	{
+		x1 = x2;
+		x2 = (x1 + a/x1) / 2.0;
+	} while (fabs(x1-x2) >= 0.00001);
+	printf("%f\n",x2);
+	return 0;
+}*/
+
+/*17.利用牛顿迭代法求方程的根
+#include <stdio.h>
+#include <math.h>
+int main(){
+	double x0,x1=1.5,f,f1;
+	do
+	{
+		x0 = x1;
+		f = 2 * x0 * x0 * x0 - 4 * x0 * x0 + 3 * x0 -6;
+		f1 = 6 * x0 * x0 - 8 * x0 + 3;
+		x1 = x0 - f / f1; 
+	} while (fabs(x0-x1) >= 1e-5);
+	printf("The root of equation is %5.2f\n",x1);
+}*/
+
+/*18.利用二分法 求方程的根
+#include<stdio.h>
+#include<math.h>
+int main(){
+	float a,b,m,fa,fb,fm;
+	a = -10;
+	b = 10;
+	m = (a+b) / 2;
+	fm = 2*m*m*m - 4*m*m + 3*m-6;
+	while (fabs(fm) > 1e-6)
+	{
+		fa = 2*a*a*a - 4*a*a + 3*a-6;
+		fb = 2*b*b*b - 4*b*b + 3*b-6;
+		if (fa * fm > 0)
+			a = m;
+		else 
+			b = m;
+		m = (a+b)/2;
+		fm = 2*m*m*m - 4*m*m + 3*m-6;;
+	}
+	printf("%.2f\n",m);
+	return 0;
+}
+*/
